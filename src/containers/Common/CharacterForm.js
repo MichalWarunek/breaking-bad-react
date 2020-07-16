@@ -10,16 +10,17 @@ class CharacterForm extends Component {
         super(props);
 
         this.state = {
-            nickname: this.props.character.nickname,
-            name: this.props.character.name,
-            status: this.props.character.status,
-            portrayed: this.props.character.portrayed
+            id: this.props.character ? this.props.character.id : null,
+            nickname: this.props.character ? this.props.character.nickname : null,
+            name: this.props.character ? this.props.character.name : null,
+            status: this.props.character ? this.props.character.status : null,
+            portrayed: this.props.character ? this.props.character.portrayed : null
         }
     }
 
     save = () => {
         this.props.save({
-            id: this.props.character.id,
+            id: this.state.id,
             nickname: this.state.nickname,
             name: this.state.name,
             status: this.state.status,
@@ -64,28 +65,32 @@ class CharacterForm extends Component {
                 <p>Nickname:</p>
                 <Input
                     id="my-input"
-                    defaultValue={character.nickname ? character.nickname : ''}
+                    fullWidth
+                    defaultValue={character ? character.nickname : ''}
                     onChange={this.onChangeNickname}
                     aria-describedby="my-helper-text"
                 />
                 <p>Name: </p>
                 <Input
                     id="my-input"
-                    defaultValue={character.name ? character.name : ''}
+                    fullWidth
+                    defaultValue={character ? character.name : ''}
                     onChange={this.onChangeName}
                     aria-describedby="my-helper-text"
                 />
                 <p>Status: </p>
                 <Input
                     id="my-input"
-                    defaultValue={character.status ? character.status : ''}
+                    fullWidth
+                    defaultValue={character ? character.status : ''}
                     onChange={this.onChangeStatus}
                     aria-describedby="my-helper-text"
                 />
                 <p>Portrayed:</p>
                 <Input
                     id="my-input"
-                    defaultValue={character.portrayed ? character.portrayed : ''}
+                    fullWidth
+                    defaultValue={character ? character.portrayed : ''}
                     onChange={this.onChangePortrayed}
                     aria-describedby="my-helper-text"
                 /><br />

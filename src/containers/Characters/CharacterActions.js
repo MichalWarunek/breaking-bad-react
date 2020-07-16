@@ -24,7 +24,6 @@ export const saveCharacter = (character, callback) => async () => {
         url: `/characters/${character.id ? character.id : ''}`,
         method: character.id ? 'PUT' : 'POST',
         data: {character},
-        message: 'Item saved'
     };
     const result = await axios.request(config);
     callback(result.data);

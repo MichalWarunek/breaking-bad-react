@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Container from '@material-ui/core/Container';
-import Brightness1Icon from '@material-ui/icons/Brightness1';
 import CharacterForm from '../Common/CharacterForm'
 
 
@@ -27,7 +26,7 @@ class Character extends Component {
     goToIndex = () => this.props.history.push('/characters');
 
     onShowEdit = () => {
-        this.setState(prevState =>({showEdit: !prevState.showEdit}))
+        this.setState({showEdit: true})
     };
 
     componentDidMount() {
@@ -45,16 +44,18 @@ class Character extends Component {
         const {character, loading, showEdit} = this.state;
 
         return !loading &&
-            <Container maxWidth="xs">
+            <Container style={{marginTop: "100px"}} maxWidth="xs">
                 <Card>
                     <CardActionArea onClick={() => this.onShowEdit()}>
+                        { character &&
                         <CardMedia
                             component="img"
                             height="600"
-                            image={character.img}
-                            title={character.name}
+                            image={character ? character.img : null}
+                            title={character ? character.name : null}
                         />
-                        { showEdit ?
+                        }
+                        { showEdit || !character ?
 
                             <CardContent>
                                 <CharacterForm
@@ -62,50 +63,36 @@ class Character extends Component {
                                     save={character => this.props.actions.saveCharacter(character, this.goToIndex)}
                                 />
                             </CardContent>
+
                             :
 
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                {character.nickname}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {character.name}
-                            </Typography>
-                            {character.status === 'Alive' &&
-
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                {character.status}
-                                <Brightness1Icon fontSize="inherit" style={{color: 'lime'}}/>
-                            </Typography>
-                            }
-                            {character.status === 'Deceased' &&
-
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Death
-                                <Brightness1Icon fontSize="inherit" style={{color: 'red'}}/>
-                            </Typography>
-                            }
-                            {character.status !== 'Alive' && character.status !== 'Deceased' &&
-
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Unknown
-                                <Brightness1Icon fontSize="inherit" style={{color: 'gray'}}/>
-                            </Typography>
-                            }
-
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                by: {character.portrayed}
-                            </Typography>
-                        </CardContent>
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {character ? character.nickname : null}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {character ? character.name : null}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {character ? character.status : null}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    by: {character ? character.portrayed : null}
+                                </Typography>
+                            </CardContent>
                         }
                     </CardActionArea>
                     <CardActions>
                         <Button onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
-                        <Button onClick={() => this.props.actions.deleteCharacter(character.id,()=>{alert(`${character.nickname} has been deleted`)}, this.goToIndex)} size="small" color="primary">
+                        { character &&
+                        <Button onClick={() => this.props.actions.deleteCharacter(character.id, () => {
+                            alert(`${character.nickname} has been deleted`)
+                        }, this.goToIndex)} size="small" color="primary">
                             Delete
                         </Button>
+                        }
                     </CardActions>
 
                 </Card>

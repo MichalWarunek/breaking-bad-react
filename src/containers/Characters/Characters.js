@@ -33,13 +33,13 @@ class Characters extends Component {
 
 
     render() {
-     const data = this.state.data;
+        const data = this.state.data;
         return (
-            <Container maxWidth="sm">
+            <Container style={{marginTop: "100px"}} maxWidth="sm">
                 <GridList cellHeight={400}>
                     { data.map((data) => (
                         <GridListTile key={data.id}>
-                            <img onClick={() => this.props.history.push(`/character/${data.id}`)} className="test" src={data.img} alt={null} />
+                            <img onClick={() => this.props.history.push(`/character/${data.id}`)} className="test" src={data.img} alt="Text" />
                             <GridListTileBar
                                 title={data.nickname}
                                 style={{height: 150}}
