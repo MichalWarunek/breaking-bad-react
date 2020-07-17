@@ -54,7 +54,6 @@ class CharacterForm extends Component {
 
 
     render() {
-        console.log(this.state.nickname);
 
         const {character} = this.props;
 

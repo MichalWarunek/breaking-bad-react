@@ -5,40 +5,48 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { withStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
-
-
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import {withStyles} from '@material-ui/core/styles';
+import {withRouter} from "react-router-dom";
 
 
 const styles = {
     paper: {
-        background: grey[900],
-        color: 'white',
-        borderRight: '1px solid white'
+        borderRight: '2px solid gray'
 
-    }
+    },
 };
-
 
 
 class Sidebar extends Component {
 
-
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
+
         return (
-            <Drawer classes={{ paper: classes.paper }} open={false}>
-                <List>
-                        <ListItem button>
-                            <ListItemIcon><PeopleAltIcon style={{color: "white"}}/></ListItemIcon>
-                            <ListItemText primary="Characters" />
+            <div>
+                <Drawer
+                    onClose={this.props.closeSidebar}
+                    onClick={this.props.closeSidebar}
+                    classes={{paper: classes.paper}}
+                    open={this.props.openSidebar}>
+                    <List>
+                        <ListItem button onClick={() => this.props.history.push('/character')}>
+                            <ListItemIcon><PersonAddIcon style={{color: "black"}}/></ListItemIcon>
+                            <ListItemText primary="Add New Character"/>
                         </ListItem>
-                </List>
-            </Drawer>
+                        <ListItem button onClick={() => this.props.history.push('/characters')}>
+                            <ListItemIcon><PeopleAltIcon style={{color: "black"}}/></ListItemIcon>
+                            <ListItemText primary="Characters"/>
+                        </ListItem>
+
+                    </List>
+                </Drawer>
+            </div>
         );
     }
 
 }
 
-export default withStyles(styles)(Sidebar);
+export default withRouter(withStyles(styles)(Sidebar));
+
