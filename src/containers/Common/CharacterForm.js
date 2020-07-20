@@ -1,7 +1,7 @@
-import Button from '@material-ui/core/Button';
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 
 class CharacterForm extends Component {
@@ -93,9 +93,11 @@ class CharacterForm extends Component {
                     onChange={this.onChangePortrayed}
                     aria-describedby="my-helper-text"
                 /><br />
-                <Button type="submit" size="small" color="primary">
+                <div style={{textAlign:"center", marginTop: 20}}>
+                <Button  type="submit" size="small" color="primary">
                     Save
                 </Button>
+                </div>
             </form>
 
         );

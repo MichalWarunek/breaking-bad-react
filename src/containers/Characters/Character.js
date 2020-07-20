@@ -11,7 +11,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Container from '@material-ui/core/Container';
-import CharacterForm from '../Common/CharacterForm'
+import CharacterForm from '../Common/CharacterForm';
+import DeleteCharacterModal from './DeleteCharacterModal';
+
 
 
 
@@ -21,6 +23,7 @@ class Character extends Component {
     state = {
         loading: true,
         showEdit: false,
+        showModal: false,
     };
 
     goToIndex = () => this.props.history.push('/characters');
@@ -41,20 +44,18 @@ class Character extends Component {
 
 
     render = () => {
-        const {character, loading, showEdit} = this.state;
+        const {character, loading, showEdit, showModal} = this.state;
 
         return !loading &&
+            <div>
             <Container style={{marginTop: "100px"}} maxWidth="xs">
                 <Card>
                     <CardActionArea onClick={() => this.onShowEdit()}>
-                        { character &&
+
                         <CardMedia
                             component="img"
-                            height="600"
-                            image={character ? character.img : null}
-                            title={character ? character.name : null}
+                            image={character ? character.img : ''}
                         />
-                        }
                         { showEdit || !character ?
 
                             <CardContent>
@@ -82,22 +83,29 @@ class Character extends Component {
                             </CardContent>
                         }
                     </CardActionArea>
-                    <CardActions>
+                    <CardActions style={{backgroundColor: '#f7f7f7'}}>
                         <Button onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
                         { character &&
-                        <Button onClick={() => this.props.actions.deleteCharacter(character.id, () => {
-                            alert(`${character.nickname} has been deleted`)
-                        }, this.goToIndex)} size="small" color="primary">
+                        <Button style={{marginLeft: 'auto'}} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
                             Delete
                         </Button>
                         }
                     </CardActions>
 
                 </Card>
-
             </Container>
+                { showModal &&
+                    <DeleteCharacterModal
+                        showModal={showModal}
+                        delete={() => this.props.actions.deleteCharacter(character.id, () => {
+                            alert(`${character.nickname} has been deleted`)
+                        }, this.goToIndex)}
+                        back={() => this.setState({showModal: false})}
+                    />
+                }
+            </div>
 
     };
 
