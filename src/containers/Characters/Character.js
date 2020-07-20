@@ -13,6 +13,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Container from '@material-ui/core/Container';
 import CharacterForm from '../Common/CharacterForm';
 import DeleteCharacterModal from './DeleteCharacterModal';
+import Notifications from '../Notifications/Notifications'
+
 
 
 
@@ -24,6 +26,8 @@ class Character extends Component {
         loading: true,
         showEdit: false,
         showModal: false,
+        showNotification: false,
+        notificationType: ''
     };
 
     goToIndex = () => this.props.history.push('/characters');
@@ -44,7 +48,7 @@ class Character extends Component {
 
 
     render = () => {
-        const {character, loading, showEdit, showModal} = this.state;
+        const {character, loading, showEdit, showModal, showNotification, notificationType} = this.state;
 
         return !loading &&
             <div>
@@ -61,7 +65,9 @@ class Character extends Component {
                             <CardContent>
                                 <CharacterForm
                                     character={character}
-                                    save={character => this.props.actions.saveCharacter(character, this.goToIndex)}
+                                    save={character => this.props.actions.saveCharacter(character,() => {
+                                        this.setState({showNotification: true, notificationType: 'saved'})
+                                    }, this.goToIndex())}
                                 />
                             </CardContent>
 
@@ -91,6 +97,7 @@ class Character extends Component {
                         <Button style={{marginLeft: 'auto'}} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
                             Delete
                         </Button>
+
                         }
                     </CardActions>
 
@@ -100,11 +107,19 @@ class Character extends Component {
                     <DeleteCharacterModal
                         showModal={showModal}
                         delete={() => this.props.actions.deleteCharacter(character.id, () => {
-                            alert(`${character.nickname} has been deleted`)
-                        }, this.goToIndex)}
+                            this.setState({showNotification: true, notificationType: 'deleted'})
+                        }, this.goToIndex())}
                         back={() => this.setState({showModal: false})}
                     />
                 }
+
+                <Notifications
+                    showNotification={showNotification}
+                    character={character}
+                    close={()=>{this.setState({showNotification: false})}}
+                    notificationType={notificationType}
+                />
+
             </div>
 
     };
