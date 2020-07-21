@@ -1,7 +1,21 @@
 import React, {Component} from 'react';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import {withStyles} from '@material-ui/core/styles';
 
+
+const styles = {
+    buttonSave: {
+        color: 'white',
+        border: '1px solid green',
+    },
+    input: {
+        color: 'white',
+        borderBottom: '1px solid white'
+    }
+};
 
 class CharacterForm extends Component {
 
@@ -50,41 +64,45 @@ class CharacterForm extends Component {
 
 
     render() {
-        const {character} = this.props;
+        const {character, classes} = this.props;
 
         return (
             <form onSubmit={this.save}>
                 <p>Nickname:</p>
                 <Input
-                    id="my-input"
+                    className={classes.input}
                     fullWidth
                     defaultValue={character ? character.nickname : ''}
                     onChange={this.onChangeNickname}
                 />
                 <p>Name: </p>
                 <Input
-                    id="my-input"
+                    className={classes.input}
                     fullWidth
                     defaultValue={character ? character.name : ''}
                     onChange={this.onChangeName}
                 />
                 <p>Status: </p>
-                <Input
-                    id="my-input"
+                <Select
+                    className={classes.input}
                     fullWidth
                     defaultValue={character ? character.status : ''}
                     onChange={this.onChangeStatus}
-                />
+                >
+                    <MenuItem value='Alive'>Alive</MenuItem>
+                    <MenuItem value='Deceased'>Death</MenuItem>
+                    <MenuItem value='Undefined'>Undefined</MenuItem>
+                </Select>
                 <p>Portrayed:</p>
                 <Input
-                    id="my-input"
+                    className={classes.input}
                     fullWidth
                     defaultValue={character ? character.portrayed : ''}
                     onChange={this.onChangePortrayed}
                 />
                 <br />
                 <div className="form">
-                <Button  type="submit" size="small" color="primary">
+                <Button className={classes.buttonSave} type="submit" size="small" color="primary">
                     Save
                 </Button>
                 </div>
@@ -95,4 +113,4 @@ class CharacterForm extends Component {
 
 
 
-export default (CharacterForm);
+export default withStyles(styles)(CharacterForm);

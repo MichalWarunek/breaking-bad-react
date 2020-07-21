@@ -22,10 +22,19 @@ const styles = {
         marginTop: "100px"
     },
     actions: {
-        backgroundColor: '#f7f7f7'
+        backgroundColor: 'black',
+    },
+    infoContent: {
+        backgroundColor: 'black',
+        color: 'white'
     },
     buttonDelete: {
-        marginLeft: 'auto',
+        color: 'white',
+        border: '1px solid red'
+    },
+    buttonBack: {
+        color: 'white',
+        border: '1px solid blue'
     }
 };
 
@@ -78,7 +87,7 @@ class Character extends Component {
                         />
                         { showEdit || !character ?
 
-                            <CardContent>
+                            <CardContent className={classes.infoContent}>
                                 <CharacterForm
                                     character={character}
                                     save={character => this.props.actions.saveCharacter(character,() => {
@@ -89,28 +98,28 @@ class Character extends Component {
 
                             :
 
-                            <CardContent>
+                            <CardContent className={classes.infoContent}>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     {character ? character.nickname : null}
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
+                                <Typography variant="body2" component="p">
                                     {character ? character.name : null}
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
+                                <Typography variant="body2" component="p">
                                     {character ? character.status : null}
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
+                                <Typography variant="body2" component="p">
                                     by: {character ? character.portrayed : null}
                                 </Typography>
                             </CardContent>
                         }
                     </CardActionArea>
                     <CardActions id="actions" className={classes.actions} >
-                        <Button onClick={() => this.goToIndex()} size="small" color="primary">
+                        <Button className={classes.buttonBack}  onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
                         { character &&
-                        <Button className={classes.buttonDelete} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
+                        <Button style={{marginLeft: 'auto'}} className={classes.buttonDelete} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
                             Delete
                         </Button>
 
