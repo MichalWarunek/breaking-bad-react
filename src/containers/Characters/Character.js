@@ -54,6 +54,9 @@ class Character extends Component {
             this.setState({loading: false});
         }
     }
+    componentDidUpdate() {
+        document.getElementById('actions').scrollIntoView()
+    }
 
 
     render () {
@@ -64,8 +67,11 @@ class Character extends Component {
             <div>
             <Container className={classes.root}  maxWidth="xs">
                 <Card>
-                    <CardActionArea onClick={() => this.onShowEdit()}>
+                    <CardActionArea onClick={() => {
+                        this.onShowEdit();
 
+                    }}
+                    >
                         <CardMedia
                             component="img"
                             image={character ? character.img : ''}
@@ -99,7 +105,7 @@ class Character extends Component {
                             </CardContent>
                         }
                     </CardActionArea>
-                    <CardActions className={classes.actions} >
+                    <CardActions id="actions" className={classes.actions} >
                         <Button onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
