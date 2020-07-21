@@ -6,6 +6,18 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Sidebar from '../Sidebar/Sidebar'
 import {withRouter} from "react-router-dom";
+import {withStyles} from '@material-ui/core/styles';
+
+
+const styles = {
+    nav: {
+        backgroundColor: "black" ,
+        borderBottom: "1px solid white"
+    },
+    navButton: {
+        marginLeft: 'auto'
+    }
+};
 
 
 class Header extends Component {
@@ -21,15 +33,16 @@ class Header extends Component {
 
 
     render() {
+        const {classes} = this.props;
         const {openSidebar} = this.state;
         return (
             <div>
-            <AppBar style={{backgroundColor: "black" , borderBottom: "1px solid white"}}>
+            <AppBar className={classes.nav}>
                 <Toolbar>
                     <IconButton onClick={() => this.onOpenSidebar()} edge="start" color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Button onClick={() => this.props.history.push('/characters/')} color="inherit" style={{marginLeft: 'auto'}}>
+                    <Button onClick={() => this.props.history.push('/characters/')} color="inherit" className={classes.navButton}>
                         BREAKING BAD API
                     </Button>
                 </Toolbar>
@@ -41,4 +54,4 @@ class Header extends Component {
 
 }
 
-export default withRouter(Header);
+export default withRouter(withStyles(styles)(Header));

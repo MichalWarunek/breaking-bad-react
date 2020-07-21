@@ -11,7 +11,7 @@ import {withRouter} from "react-router-dom";
 
 
 const styles = {
-    paper: {
+    sidebar: {
         borderRight: '2px solid gray'
 
     },
@@ -28,7 +28,7 @@ class Sidebar extends Component {
                 <Drawer
                     onClose={this.props.closeSidebar}
                     onClick={this.props.closeSidebar}
-                    classes={{paper: classes.paper}}
+                    className={classes.sidebar}
                     open={this.props.openSidebar}>
                     <List>
                         <ListItem button onClick={() => this.props.history.push('/character')}>

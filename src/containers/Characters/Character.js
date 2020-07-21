@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import * as actions from "./CharacterActions";
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -14,11 +13,21 @@ import Container from '@material-ui/core/Container';
 import CharacterForm from '../Common/CharacterForm';
 import DeleteCharacterModal from './DeleteCharacterModal';
 import Notifications from '../Notifications/Notifications'
+import {withStyles} from '@material-ui/core/styles';
+import {withRouter} from "react-router-dom";
 
 
-
-
-
+const styles = {
+    root: {
+        marginTop: "100px"
+    },
+    actions: {
+        backgroundColor: '#f7f7f7'
+    },
+    buttonDelete: {
+        marginLeft: 'auto',
+    }
+};
 
 class Character extends Component {
 
@@ -47,12 +56,13 @@ class Character extends Component {
     }
 
 
-    render = () => {
+    render () {
+        const {classes} = this.props;
         const {character, loading, showEdit, showModal, showNotification, notificationType} = this.state;
 
         return !loading &&
             <div>
-            <Container style={{marginTop: "100px"}} maxWidth="xs">
+            <Container className={classes.root}  maxWidth="xs">
                 <Card>
                     <CardActionArea onClick={() => this.onShowEdit()}>
 
@@ -89,12 +99,12 @@ class Character extends Component {
                             </CardContent>
                         }
                     </CardActionArea>
-                    <CardActions style={{backgroundColor: '#f7f7f7'}}>
+                    <CardActions className={classes.actions} >
                         <Button onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
                         { character &&
-                        <Button style={{marginLeft: 'auto'}} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
+                        <Button className={classes.buttonDelete} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
                             Delete
                         </Button>
 
@@ -136,4 +146,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
     undefined,
     mapDispatchToProps
-)(Character));
+)(withStyles(styles)(Character)));

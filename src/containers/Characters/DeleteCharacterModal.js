@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 
 const styles = {
-    paper: {
+    modal: {
         position: 'absolute',
         width: 300,
         backgroundColor: "black",
@@ -18,6 +18,9 @@ const styles = {
         textAlign: 'center'
 
     },
+    buttonBack: {
+        marginRight: '10px'
+    }
 };
 
 
@@ -28,9 +31,9 @@ class DeleteCharacterModal extends Component {
         return (
             <div>
                 <Modal open={this.props.showModal} onClick={this.props.back}>
-                    <div className={classes.paper}>
+                    <div className={classes.modal}>
                         <h1>Are you sure?</h1>
-                        <Button style={{marginRight: "10px"}} onClick={this.props.back} variant="outlined" color="primary">Back</Button>
+                        <Button className={classes.buttonBack} onClick={this.props.back} variant="outlined" color="primary">Back</Button>
                         <Button onClick={this.props.delete} variant="outlined" color="primary">Yes</Button>
 
                     </div>
