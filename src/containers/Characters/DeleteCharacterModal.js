@@ -10,7 +10,6 @@ const styles = {
         position: 'absolute',
         width: 300,
         backgroundColor: "black",
-        border: '2px solid #f7f7f7',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
@@ -19,7 +18,13 @@ const styles = {
 
     },
     buttonBack: {
-        marginRight: '10px'
+        marginRight: '10px',
+        color: 'white',
+        border: '1px solid blue'
+    },
+    buttonOk: {
+        color: 'white',
+        border: '1px solid green'
     }
 };
 
@@ -32,9 +37,9 @@ class DeleteCharacterModal extends Component {
             <div>
                 <Modal open={this.props.showModal} onClick={this.props.back}>
                     <div className={classes.modal}>
-                        <h1>Are you sure?</h1>
+                        <h2>ARE YOU SURE?</h2>
                         <Button className={classes.buttonBack} onClick={this.props.back} variant="outlined" color="primary">Back</Button>
-                        <Button onClick={this.props.delete} variant="outlined" color="primary">Yes</Button>
+                        <Button className={classes.buttonOk} onClick={this.props.delete} variant="outlined" color="primary">Yes</Button>
 
                     </div>
                 </Modal>

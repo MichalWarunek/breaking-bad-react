@@ -102,7 +102,7 @@ class CharacterForm extends Component {
                 />
                 <br />
                 <div className="form">
-                <Button className={classes.buttonSave} type="submit" size="small" color="primary">
+                <Button className={classes.buttonSave} variant="outlined" type="submit" size="small" color="primary">
                     Save
                 </Button>
                 </div>

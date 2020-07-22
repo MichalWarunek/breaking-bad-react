@@ -115,11 +115,11 @@ class Character extends Component {
                         }
                     </CardActionArea>
                     <CardActions id="actions" className={classes.actions} >
-                        <Button className={classes.buttonBack}  onClick={() => this.goToIndex()} size="small" color="primary">
+                        <Button className={classes.buttonBack} variant="outlined" onClick={() => this.goToIndex()} size="small" color="primary">
                             Back
                         </Button>
                         { character &&
-                        <Button style={{marginLeft: 'auto'}} className={classes.buttonDelete} onClick={()=> this.setState({showModal: true})} size="small" color="primary">
+                        <Button style={{marginLeft: 'auto'}} className={classes.buttonDelete} variant="outlined" onClick={()=> this.setState({showModal: true})} size="small" color="primary">
                             Delete
                         </Button>
 
