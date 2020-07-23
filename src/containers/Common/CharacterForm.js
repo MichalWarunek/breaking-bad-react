@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {withStyles, Input, Button, Select, MenuItem }from '@material-ui/core';
+import {withStyles, Button, Select, MenuItem, TextField }from '@material-ui/core';
+import grey from '@material-ui/core/colors/grey';
+
 
 const styles = {
     buttonSave: {
@@ -8,7 +10,8 @@ const styles = {
     },
     input: {
         color: 'white',
-        borderBottom: '1px solid white'
+        backgroundColor: grey[900],
+        height: 40
     }
 };
 
@@ -18,6 +21,10 @@ class CharacterForm extends Component {
         super(props);
 
         this.state = {
+            error: false,
+            nicknameError: false,
+            nameError: false,
+            portrayedError: false,
             id: this.props.character ? this.props.character.id : null,
             nickname: this.props.character ? this.props.character.nickname : null,
             name: this.props.character ? this.props.character.name : null,
@@ -27,24 +34,38 @@ class CharacterForm extends Component {
     }
 
     save = () => {
-        this.props.save({
-            id: this.state.id,
-            nickname: this.state.nickname,
-            name: this.state.name,
-            status: this.state.status,
-            portrayed: this.state.portrayed
-        });
+        if (this.state.error) {
+            return;
+        }
+        else {
+            this.props.save({
+                id: this.state.id,
+                nickname: this.state.nickname,
+                name: this.state.name,
+                status: this.state.status,
+                portrayed: this.state.portrayed
+            });
+        }
     };
 
 
     onChangeNickname = (e) => {
         const nickname = e.target.value;
-        this.setState({nickname});
+        if (!nickname) {
+            this.setState({error: true, nicknameError: true})
+        } else {
+            this.setState({nickname});
+        }
+
     };
 
     onChangeName = (e) => {
         const name = e.target.value;
-        this.setState({name});
+        if (!name) {
+            this.setState({error: true, nameError: true})
+        } else {
+            this.setState({name});
+        }
     };
 
     onChangeStatus = (e) => {
@@ -54,44 +75,71 @@ class CharacterForm extends Component {
 
     onChangePortrayed = (e) => {
         const portrayed = e.target.value;
-        this.setState({portrayed});
+        if (!portrayed) {
+            this.setState({error: true, portrayedError: true})
+        } else {
+            this.setState({portrayed});
+        }
     };
 
 
     render() {
+        const {nicknameError, nameError, portrayedError} = this.state;
         const {character, classes} = this.props;
 
         return (
             <form onSubmit={this.save}>
-                <p>Nickname:</p>
-                <Input
-                    className={classes.input}
+                <div>
+                    <p>*Nickname:</p>
+                <TextField
+                    autoFocus
+                    error={nicknameError}
+                    id="outlined-error-helper-text"
+                    helperText="Please enter nickname"
+                    variant="outlined"
+                    InputProps={{
+                        className: classes.input
+                    }}
                     fullWidth
                     defaultValue={character ? character.nickname : ''}
                     onChange={this.onChangeNickname}
                 />
-                <p>Name: </p>
-                <Input
-                    className={classes.input}
+                </div>
+                <p>*Name:</p>
+                <TextField
+                    error={nameError}
+                    id="outlined-error-helper-text"
+                    helperText="Please enter name"
                     fullWidth
+                    variant="outlined"
+                    InputProps={{
+                        className: classes.input
+                    }}
                     defaultValue={character ? character.name : ''}
                     onChange={this.onChangeName}
                 />
-                <p>Status: </p>
+                <p>*Status: </p>
                 <Select
                     className={classes.input}
                     fullWidth
-                    defaultValue={character ? character.status : ''}
+                    variant="outlined"
+                    defaultValue={character ? character.status : 'Alive'}
                     onChange={this.onChangeStatus}
                 >
                     <MenuItem value='Alive'>Alive</MenuItem>
                     <MenuItem value='Deceased'>Death</MenuItem>
                     <MenuItem value='Undefined'>Undefined</MenuItem>
                 </Select>
-                <p>Portrayed:</p>
-                <Input
-                    className={classes.input}
+                <p>*Portrayed:</p>
+                <TextField
+                    error={portrayedError}
+                    id="outlined-error-helper-text"
+                    helperText="Please enter portrayed"
                     fullWidth
+                    variant="outlined"
+                    InputProps={{
+                        className: classes.input
+                    }}
                     defaultValue={character ? character.portrayed : ''}
                     onChange={this.onChangePortrayed}
                 />
