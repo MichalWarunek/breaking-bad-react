@@ -49,7 +49,7 @@ class Characters extends Component {
                 <GridList cellHeight={400}>
                     { data.map((data) => (
                         <GridListTile onClick={() => this.props.history.push(`/character/${data.id}`)} key={data.id}>
-                            <img  className="character-image" src={data.img} alt="Text" />
+                            <img  className="character-image" src={data.img ? data.img : data.image} alt="Text" />
                             <GridListTileBar
                                 title={data.nickname}
                                 style={{height: 150}}
