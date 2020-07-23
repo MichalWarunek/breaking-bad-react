@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {withStyles, Drawer, List, ListItem, ListItemText, ListItemIcon} from '@material-ui/core';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from "react-router-dom";
 
 
 const styles = {
     sidebar: {
         borderRight: '2px solid gray'
-
     },
+    list: {
+        width: 200
+    }
 };
 
 
@@ -30,11 +26,7 @@ class Sidebar extends Component {
                     onClick={this.props.closeSidebar}
                     className={classes.sidebar}
                     open={this.props.openSidebar}>
-                    <List>
-                        <ListItem button onClick={() => this.props.history.push('/character')}>
-                            <ListItemIcon><PersonAddIcon style={{color: "black"}}/></ListItemIcon>
-                            <ListItemText primary="Add New Character"/>
-                        </ListItem>
+                    <List className={classes.list}>
                         <ListItem button onClick={() => this.props.history.push('/characters')}>
                             <ListItemIcon><PeopleAltIcon style={{color: "black"}}/></ListItemIcon>
                             <ListItemText primary="Characters"/>

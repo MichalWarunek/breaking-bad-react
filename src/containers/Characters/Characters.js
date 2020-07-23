@@ -2,12 +2,8 @@ import React, {Component} from 'react';
 import * as actions from "./CharactersActions";
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
-import { Container } from '@material-ui/core';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
+import {withStyles, Button, GridList, GridListTile, GridListTileBar, Container, Grid} from '@material-ui/core';
 import Brightness1Icon from '@material-ui/icons/Brightness1';
-import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from "react-router-dom";
 
 const styles = {
@@ -22,7 +18,11 @@ const styles = {
     },
     unknown: {
         color: 'gray'
-    }
+    },
+    buttonAdd: {
+        color: 'white',
+        border: '1px solid green',
+    },
 };
 
 class Characters extends Component {
@@ -45,8 +45,18 @@ class Characters extends Component {
         const {classes} = this.props;
         const { data } = this.state;
         return (
-            <Container className={classes.root} maxWidth="sm">
-                <GridList cellHeight={400}>
+            <Container className={classes.root} maxWidth="xl">
+                <Grid container>
+                <Grid item xs={2} >
+
+                            <Button className={classes.buttonAdd} variant="outlined"
+                                    onClick={() => this.props.history.push('/character')}size="large"
+                                    color="primary">
+                                New Character
+                            </Button>
+                </Grid>
+                    <Grid item xs={9}>
+                <GridList spacing={10} cols={4} cellHeight={400}>
                     { data.map((data) => (
                         <GridListTile onClick={() => this.props.history.push(`/character/${data.id}`)} key={data.id}>
                             <img  className="character-image" src={data.img ? data.img : data.image} alt="Text" />
@@ -73,6 +83,8 @@ class Characters extends Component {
                         </GridListTile>
                     ))}
                 </GridList>
+                    </Grid>
+                </Grid>
             </Container>
         )
     }

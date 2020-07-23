@@ -5,9 +5,8 @@ import {connect} from "react-redux";
 import CharacterForm from '../Common/CharacterForm';
 import DeleteCharacterModal from './DeleteCharacterModal';
 import Notifications from '../Notifications/Notifications'
-import {withStyles} from '@material-ui/core/styles';
 import {withRouter} from "react-router-dom";
-import {Grid, Card, CardContent, CardMedia, CardActions, CardActionArea, Button, Typography} from '@material-ui/core';
+import {withStyles, Grid, Card, CardContent, CardMedia, CardActions, CardActionArea, Button, Typography} from '@material-ui/core';
 import UploadCharacterImageModal from "./UploadCharacterImageModal";
 
 
